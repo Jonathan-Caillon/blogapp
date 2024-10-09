@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import { ApolloServer } from "apollo-server";
-import dataSource from "./dataSource";
+import { dataSource } from "./dataSource";
 import { buildSchema } from "type-graphql";
 // import { join } from "path";
 import { User } from "./models/User";

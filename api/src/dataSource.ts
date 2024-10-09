@@ -15,7 +15,7 @@ if (typeof DBport === "number" && isNaN(DBport)) {
 }
 
 // Create a new DataSource with the following configuration :
-const dataSource = new DataSource({
+export const dataSource = new DataSource({
   // if we run backend without docker, the host has to be 'localhost'
   // if we run backend with docker, the host has to be 'postgres'
   type: process.env.DB_TYPE as any,
@@ -41,5 +41,3 @@ export const testDataSource = new DataSource({
 
   entities: [path],
 });
-
-export default dataSource;
