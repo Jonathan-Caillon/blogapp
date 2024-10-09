@@ -9,7 +9,9 @@
     "start": "ts-node-dev src/index.ts",
     "dev": "ts-node-dev --respawn src/index.ts",
     "lint": "echo '----- Checking Backend...' && npx prettier --debug-check . && eslint --ext .js . && echo '----- Done!'",
-    "fix": "prettier --write . && eslint --fix --ext .js ."
+    "fix": "prettier --write . && eslint --fix --ext .js .",
+    "tsc": "tsc",
+    "start:prod": "node src/index.js"
   },
   "author": "",
   "license": "ISC",
