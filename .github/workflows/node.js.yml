@@ -5,37 +5,40 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: ["dev"]
 
 jobs:
-        backend-tests:
-                runs-on: ubuntu-latest
+  backend-tests:
+    runs-on: ubuntu-latest
 
-                services:
-                        postgres_test:
-                                image: mariadb
-                                ports:
-                                        - 3306:3306
-                                env:
-                                        MARIADB_ROOT_PASSWORD: ""
+    services:
+      api_mariadb:
+        image: mariadb
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_USER: test
+          MYSQL_PASSWORD: test
+          MYSQL_DATABASE: test
+          MYSQL_ROOT_PASSWORD: test
 
-                steps:
-                        - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-                        - name: Run backend tests
-                          env:
-                                  BACKEND_PORT: 5000
-                                  FRONTEND_URL: http://localhost:3000
-                                  DB_TYPE: mariadb
-                                  DB_HOST: localhost
-                                  DB_PORT: 3306
-                                  DB_USER: root
-                                  DB_PASSWORD: ""
-                                  DB_NAME: api_mariadb
-                                  JWT_SECRET: secret
-                                  JWT_TIMING: 1h
+      - name: Run backend tests
+        env:
+          BACKEND_PORT: 5000
+          FRONTEND_URL: http://localhost:3000
+          DB_TYPE: mariadb
+          DB_HOST: localhost
+          DB_PORT: 3306
+          DB_USER: test
+          DB_PASSWORD: test
+          DB_NAME: test
+          JWT_SECRET: secret
+          JWT_TIMING: 1h
 
-                          run: |
-                                  cd backend
-                                  npm install
-                                  npm run test
+        run: |
+          cd api
+          npm install
+          npm run test
