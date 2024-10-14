@@ -1,5 +1,5 @@
 services:
-        api:
+        backend:
                 build: ./api
                 ports:
                         - 5000:5000
@@ -8,7 +8,7 @@ services:
                 env_file:
                         - ./api/.env  
                 command: npm run dev  
-        vue-project:
+        frontend:
                 build: ./vue-project
                 ports:
                         - 3000:3000
