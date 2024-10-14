@@ -31,7 +31,7 @@ export const dataSource = new DataSource({
 export const testDataSource = new DataSource({
   type: "postgres",
   host: "postgres",
-  port: 5433,
+  port: 5432,
   username: "test",
   password: "test",
   database: "postgres",
