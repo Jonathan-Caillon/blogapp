@@ -1,0 +1,42 @@
+services:
+        api:
+                build: ./api
+                ports:
+                        - 5000:5000
+                volumes:
+                        - ./api/src:/app/src
+                env_file:
+                        - ./api/.env  
+                command: npm run dev  
+        vue-project:
+                build: ./vue-project
+                ports:
+                        - 3000:3000
+                volumes:
+                        - ./vue-project/src:/app/src
+
+                env_file:
+                        - ./vue-project/.env
+        postgres:
+                image: postgres
+                restart: always
+                ports:
+                        - 5432:5432
+                environment:
+                        POSTGRES_USER: test
+                        POSTGRES_PASSWORD: test
+                        POSTGRES_ROOT_PASSWORD: test
+        postgres_test:
+                image: postgres
+                restart: always
+                ports:
+                        - 5433:5433
+                environment:
+                        POSTGRES_USER: test
+                        POSTGRES_PASSWORD: test
+                        POSTGRES_ROOT_PASSWORD: test
+        adminer:
+                image: adminer
+                restart: always
+                ports:
+                        - 8080:8080

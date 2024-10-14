@@ -1,20 +1,24 @@
 <script setup>
-import { ref } from "vue";
 import { RouterLink } from "vue-router";
+import { ref } from "vue";
 import router from "@/router";
 
 const email = ref("");
 const password = ref("");
 
 const onSubmit = async () => {
-  const requestToken = await fetch(import.meta.env.VITE_BACKEND_URL, {
+  const request = await fetch(import.meta.env.VITE_BACKEND_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      query: `query Query($password: String!, $email: String!) {
-                signIn(password: $password, email: $email)
+      query: `mutation SignUp($password: String!, $email: String!) {
+                  signUp(password: $password, email: $email) {
+                    email
+                    id
+                    password
+                  }
                 }
               `,
       variables: {
@@ -23,15 +27,38 @@ const onSubmit = async () => {
       },
     }),
   });
+  if (request.ok) {
+    const body = await request.json();
+    if (body.errors) {
+      console.log(body.errors);
+    } else {
+      const requestToken = await fetch(import.meta.env.VITE_BACKEND_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          query: `query Query($password: String!, $email: String!) {
+                signIn(password: $password, email: $email)
+                }
+              `,
+          variables: {
+            email: email.value,
+            password: password.value,
+          },
+        }),
+      });
 
-  const token = await requestToken.json();
+      const token = await requestToken.json();
 
-  if (token.errors) {
-    console.log(token.errors);
-  } else {
-    localStorage.setItem("token", "Bearer " + token.data.signIn);
-    console.log(token.data.signIn);
-    router.push({ name: "home" });
+      if (token.errors) {
+        console.log(token.errors);
+      } else {
+        localStorage.setItem("token", "Bearer " + token.data.signIn);
+        console.log(token.data.signIn);
+        router.push({ name: "home" });
+      }
+    }
   }
 };
 </script>
@@ -56,12 +83,10 @@ const onSubmit = async () => {
         id="password"
       />
 
-      <button>Se connecter</button>
+      <button>Créer un compte</button>
 
       <div class="register">
-        <RouterLink title="Créer un compte" to="/register"
-          >Créer un compte
-        </RouterLink>
+        <RouterLink title="Se connecter" to="/login">Se connecter </RouterLink>
       </div>
     </form>
   </div>

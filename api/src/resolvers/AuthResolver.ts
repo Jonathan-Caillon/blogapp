@@ -15,6 +15,14 @@ export class AuthResolver {
     if (email === null || password === null) {
       throw new Error("All fields are required");
     }
+    const passwordRules = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\S]{7,}$/;
+
+    if (!password.match(passwordRules)) {
+      throw new Error(
+        "Pour être valide,votre mot de passe doit contenir 7 caractères, une majuscule, une minuscule et un chiffre"
+      );
+    }
+
     // We hash the password send by the user with argon2 and store it in the database
     const hashedPassword = await argon2.hash(password);
 
@@ -22,6 +30,7 @@ export class AuthResolver {
       email,
       password: hashedPassword,
     }).save();
+
     return newUser;
   }
 

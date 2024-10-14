@@ -29,12 +29,12 @@ export const dataSource = new DataSource({
 });
 
 export const testDataSource = new DataSource({
-  type: "mariadb",
-  host: "localhost",
-  port: 3306,
+  type: "postgres",
+  host: "postgres_test",
+  port: 5433,
   username: "test",
   password: "test",
-  database: "test",
+  database: "api_test",
 
   synchronize: true,
   dropSchema: true,

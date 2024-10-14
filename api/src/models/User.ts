@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, BaseEntity } from "typeorm";
 import { ObjectType, Field } from "type-graphql";
+import { Article } from "./Article";
 
 @ObjectType()
 @Entity()
@@ -18,8 +19,8 @@ export class User extends BaseEntity {
 
   @Field()
   @Column({
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP",
+    type: "timestamptz",
+    default: new Date(new Date().getTime() + 2 * 3600 * 1000),
   })
   creationDate: Date;
 }

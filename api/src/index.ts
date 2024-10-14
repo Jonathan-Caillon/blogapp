@@ -8,6 +8,7 @@ import { JwtPayload, verify } from "jsonwebtoken";
 import dotenv from "dotenv";
 import { UserResolver } from "./resolvers/UserResolver";
 import { AuthResolver } from "./resolvers/AuthResolver";
+import { ArticleResolver } from "./resolvers/ArticleResolver";
 
 dotenv.config();
 
@@ -15,7 +16,7 @@ dotenv.config();
 const start = async (): Promise<void> => {
   await dataSource.initialize();
   const schema = await buildSchema({
-    resolvers: [UserResolver, AuthResolver],
+    resolvers: [UserResolver, AuthResolver, ArticleResolver],
     authChecker: ({ context }) => {
       return context.user;
     },

@@ -9,7 +9,7 @@ describe("AuthResolver", () => {
   it("should create a new user", async () => {
     const newUser = await new AuthResolver().signUp(
       "test@example.com",
-      "password"
+      "Password123"
     );
 
     expect(newUser.email).toBe("test@example.com");
@@ -19,7 +19,9 @@ describe("AuthResolver", () => {
     try {
       await new AuthResolver().signUp("johndoe@example.com", "123");
     } catch (error: any) {
-      expect(error.message).toBe("Password must be at least 8 characters long");
+      expect(error.message).toBe(
+        "Pour être valide,votre mot de passe doit contenir 7 caractères, une majuscule, une minuscule et un chiffre"
+      );
     }
   });
 

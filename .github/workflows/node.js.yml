@@ -12,14 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     services:
-      api_mariadb:
-        image: mariadb
+      postgres:
+        image: postgres
         ports:
-          - 3306:3306
+          - 5433:5433
         env:
           MYSQL_USER: test
           MYSQL_PASSWORD: test
-          MYSQL_DATABASE: test
           MYSQL_ROOT_PASSWORD: test
 
     steps:
@@ -28,13 +27,12 @@ jobs:
       - name: Run backend tests
         env:
           BACKEND_PORT: 5000
-          FRONTEND_URL: http://localhost:3000
-          DB_TYPE: mariadb
+          DB_TYPE: postgres
           DB_HOST: localhost
-          DB_PORT: 3306
+          DB_PORT: 5432
           DB_USER: test
           DB_PASSWORD: test
-          DB_NAME: test
+          DB_NAME: postgres
           JWT_SECRET: secret
           JWT_TIMING: 1h
 
