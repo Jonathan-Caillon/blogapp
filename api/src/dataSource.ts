@@ -34,7 +34,7 @@ export const testDataSource = new DataSource({
   port: 5433,
   username: "test",
   password: "test",
-  database: "api_test",
+  database: "postgres",
 
   synchronize: true,
   dropSchema: true,
