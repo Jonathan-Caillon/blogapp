@@ -7,7 +7,6 @@ services:
                         - ./api/src:/app/src
                 env_file:
                         - ./api/.env  
-                command: npm run dev  
         frontend:
                 build: ./vue-project
                 ports:
