@@ -29,6 +29,8 @@ const onSubmit = async () => {
   });
   if (request.ok) {
     const body = await request.json();
+    console.log(body);
+
     if (body.errors) {
       console.log(body.errors);
     } else {

@@ -30,7 +30,7 @@ const onSubmit = async () => {
     console.log(token.errors);
   } else {
     localStorage.setItem("token", "Bearer " + token.data.signIn);
-    console.log(token.data.signIn);
+    console.log(token);
     router.push({ name: "home" });
   }
 };

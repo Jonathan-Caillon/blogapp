@@ -29,6 +29,8 @@ const getArticles = async () => {
 
   const allArticles = await articles.json();
 
+  console.log(allArticles);
+
   if (allArticles.errors) {
     console.log(allArticles.errors);
     if (allArticles.errors[0].message === "The user is not connected") {
